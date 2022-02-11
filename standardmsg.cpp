@@ -40,12 +40,15 @@ void checkChoice()
     {
     case 1:
         std::cout << "You chose option 1: Gaussian file processing. That's a good choice!" << std::endl;
+        break;
 
     case 2:
         std::cout << "You chose option 2: Orca file processing. That's a good choice!" << std::endl;
+        break;
 
     case 3:
         std::cout << "You chose option 3: Gamess file processing. That's a good choice!" << std::endl;
+        break;
     
     default:
         std::cout << "Something went very wrong with your choice, please inform the developer" << std::endl;
