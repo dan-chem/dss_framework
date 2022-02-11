@@ -12,11 +12,11 @@ RM = del
 # Don't edit anything in the following section #
 ################################################
 
-$(EXENAME): $(OBJECTS)
-	$(CPP) $(LINKFLAGS) $(OBJECTS) -o $(EXENAME)
-
 %.o: %.cpp
 	$(CPP) -c -o $@ $< $(CPPFLAGS)
+
+$(EXENAME): $(OBJECTS)
+	$(CPP) $(LINKFLAGS) $(OBJECTS) -o $(EXENAME)
 
 clean:
 	$(RM) *.o $(EXENAME)
