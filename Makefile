@@ -4,7 +4,7 @@
 CPP = g++
 CPPFLAGS = -Wall -g #-DDEBUG
 LINKFLAGS =
-OBJECTS = main.o standardmsg.o
+OBJECTS = main.o standardmsg.o gaussianproc.o
 EXENAME = framework.exe
 RM = del
 

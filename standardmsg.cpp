@@ -1,7 +1,6 @@
-#include <iostream>
 #include "main.h"
 
-/* Define local variables */
+/* Initiate global variables */
 int userInput1;
 
 void printHeader()
@@ -40,6 +39,8 @@ void checkChoice()
     {
     case 1:
         std::cout << "You chose option 1: Gaussian file processing. That's a good choice!" << std::endl;
+        std::cout << "--------------------------------------------------------------------" << std::endl;
+        printGaussianChoice();
         break;
 
     case 2:
