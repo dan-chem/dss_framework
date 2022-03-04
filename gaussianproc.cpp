@@ -20,6 +20,8 @@ void printGaussianChoice()
     cin >> userInput2;
     cout << "--------------------------------------------------------------------" << endl;
 
+    // Switch through all user inputs -> find a better solution for that!
+
     if(userInput2 == 1 || userInput2 == 2 || userInput2 == 100 || userInput2 == 101)
     {
         switch (userInput2)
@@ -29,6 +31,7 @@ void printGaussianChoice()
             cout << "Please provide me the filename of the Gaussian output file (including the extension): ";
             cin >> userInputFilename;
             readInputFile(userInputFilename);
+            checkCalcType();
             break;
         
         default:
@@ -62,4 +65,21 @@ void readInputFile(string userInputFilename)
         cout << "Couldn't read in the given file... Exiting..." << endl;
         exit(1);
     }
+}
+
+void checkCalcType()
+{
+    static string lineGaussianKeywords;
+
+    for(int j = 0; j < numLines; j++)
+    {
+        if(extractedLine[j].find("#") != string::npos)
+        {
+            lineGaussianKeywords = extractedLine[j];
+            D(cout << "Found line with Gaussian Keywords: " << lineGaussianKeywords << endl;)
+            break;
+        }
+    }
+
+    cout << "Test" << endl;
 }
