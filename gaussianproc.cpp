@@ -31,7 +31,7 @@ void printGaussianChoice()
             cout << "Please provide me the filename of the Gaussian output file (including the extension): ";
             cin >> userInputFilename;
             readInputFile(userInputFilename);
-            checkCalcType();
+            static int calcType = checkCalcType();
             break;
         
         default:
@@ -67,9 +67,17 @@ void readInputFile(string userInputFilename)
     }
 }
 
-void checkCalcType()
+int checkCalcType()
 {
+    // Return Value 1: Calculation is a geometry optimization
+    // Return Value 2: Calculation is a freqency analysis
+    // Return Value 3: Calculation is a combination of both
+    // Return Value 4: 
+    
     static string lineGaussianKeywords;
+    static bool gaussianOpt = false;
+    static bool gaussianFreq = false;
+//    static bool gaussianNBO = false;
 
     for(int j = 0; j < numLines; j++)
     {
@@ -81,5 +89,40 @@ void checkCalcType()
         }
     }
 
-    cout << "Test" << endl;
+    //There's probably a more elegant way for doing that! -> Find it
+
+    if(lineGaussianKeywords.find("opt") != string::npos || lineGaussianKeywords.find("OPT") != string::npos)
+    {
+        gaussianOpt = true;
+        D(cout << "You performed a geometry optimization!" << endl;)
+    }
+
+    if(lineGaussianKeywords.find("freq") != string::npos || lineGaussianKeywords.find("FREQ") != string::npos)
+    {
+        gaussianFreq = true;
+        D(cout << "You performed a frequency calculation!" << endl;)
+    }
+
+/*    if(lineGaussianKeywords.find("nbo") != string::npos || lineGaussianKeywords.find("NBO") != string::npos)
+    {
+        gaussianNBO = true;
+        D(cout << "You performed a NBO population analysis!" << endl;)
+    }
+*/
+    if(gaussianOpt == true && gaussianFreq == false)
+    {
+        return 1;
+    }
+    else if(gaussianOpt == false && gaussianFreq == true)
+    {
+        return 2;
+    }
+    else if(gaussianOpt == true && gaussianFreq == true)
+    {
+        return 3;
+    }
+    else
+    {
+        exit(1);
+    }
 }

@@ -32,7 +32,7 @@ extern string userInputFilename;
 extern vector<string> extractedLine;
 extern int numLines;
 
-void checkCalcType();
+int checkCalcType();
 
 /* Define global variables */
 
