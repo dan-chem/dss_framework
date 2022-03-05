@@ -39,6 +39,10 @@ void checkGeomConvergence();
 /* Define functions in gromacsproc.cpp */
 
 void printGromacsChoice();
+extern string userInputFilenameXVG;
+void readGromacsXVG(string userInputFilenameXVG);
+void cutGromacsLineVector();
+void transferVector();
 
 /* Define global variables */
 
