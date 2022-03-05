@@ -19,10 +19,11 @@ void printChoice()
     std::cout << "(1) Gaussian file processing" << std::endl;
     std::cout << "(2) Orca file processing" << std::endl;
     std::cout << "(3) Gamess file processing" << std::endl;
+    std::cout << "(4) Gromacs file processing" << std::endl;
     std::cout << "Please choose an option: ";
     std::cin >> userInput1;
 
-    if(userInput1 == 1 || userInput1 == 2 || userInput1 == 3)
+    if(userInput1 == 1 || userInput1 == 2 || userInput1 == 3 || userInput1 == 4)
     {
         D(std::cout << "Userinput seems to be OK, continue..." << std::endl;)
     }
@@ -49,6 +50,10 @@ void checkChoice()
 
     case 3:
         std::cout << "You chose option 3: Gamess file processing. That's a good choice!" << std::endl;
+        break;
+
+    case 4:
+        cout << "You chose option 4: Gromacs file processing. That's a good choice!" << endl;
         break;
     
     default:

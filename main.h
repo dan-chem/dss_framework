@@ -32,7 +32,9 @@ extern string userInputFilename;
 extern vector<string> extractedLine;
 extern int numLines;
 
-int checkCalcType();
+void checkCalcType();
+
+void checkGeomConvergence();
 
 /* Define global variables */
 

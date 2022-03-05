@@ -31,7 +31,8 @@ void printGaussianChoice()
             cout << "Please provide me the filename of the Gaussian output file (including the extension): ";
             cin >> userInputFilename;
             readInputFile(userInputFilename);
-            static int calcType = checkCalcType();
+            checkCalcType();
+            checkGeomConvergence();
             break;
         
         default:
@@ -67,7 +68,7 @@ void readInputFile(string userInputFilename)
     }
 }
 
-int checkCalcType()
+void checkCalcType()
 {
     // Return Value 1: Calculation is a geometry optimization
     // Return Value 2: Calculation is a freqency analysis
@@ -108,7 +109,7 @@ int checkCalcType()
         gaussianNBO = true;
         D(cout << "You performed a NBO population analysis!" << endl;)
     }
-*/
+
     if(gaussianOpt == true && gaussianFreq == false)
     {
         return 1;
@@ -124,5 +125,59 @@ int checkCalcType()
     else
     {
         exit(1);
+    }*/
+}
+
+void checkGeomConvergence()
+{
+    static string maxForceLine;
+    static string rmsForceLine;
+    static string maxDisplacementLine;
+    static string rmsDisplacementLine;
+
+    static bool maxForceConv;
+    static bool rmsForceConv;
+    static bool maxDisplacementConv;
+    static bool rmsDisplacementConv;
+
+    for(int j = 0; j < numLines; j++)
+    {
+        if(extractedLine[j].find("Item") != string::npos)
+        {
+            maxForceLine = extractedLine[j+1];
+            D(cout << "Found line with Gaussian Maximum Force information: " << maxForceLine << endl;)
+            rmsForceLine = extractedLine[j+2];
+            D(cout << "Found line with Gaussian RMS Force information: " << maxForceLine << endl;)
+            maxDisplacementLine = extractedLine[j+3];
+            D(cout << "Found line with Gaussian Maximum Displacement information: " << maxForceLine << endl;)
+            rmsDisplacementLine = extractedLine[j+4];
+            D(cout << "Found line with Gaussian RMS Displacement information: " << maxForceLine << endl;)
+        }        
+    }
+
+    if(maxForceLine.find("YES") != string::npos)
+    {
+        maxForceConv = true;
+    }
+    if(rmsForceLine.find("YES") != string::npos)
+    {
+        rmsForceConv = true;
+    }
+    if(maxDisplacementLine.find("YES") != string::npos)
+    {
+        maxDisplacementConv = true;
+    }
+    if(rmsDisplacementLine.find("YES") != string::npos)
+    {
+        rmsDisplacementConv = true;
+    }
+
+    if(maxForceConv == true && rmsForceConv == true && maxDisplacementConv == true && rmsDisplacementConv == true)
+    {
+        cout << "Geometry Optimization looks fine, everything is converged!" << endl;
+    }
+    else
+    {
+        cout << "Oh no! Something did not converge, check that!" << endl;
     }
 }

@@ -2,7 +2,7 @@
 ######## Edit variables in this section ########
 ################################################
 CPP = g++
-CPPFLAGS = -Wall -g -DDEBUG
+CPPFLAGS = -Wall -g #-DDEBUG
 LINKFLAGS =
 OBJECTS = main.o standardmsg.o gaussianproc.o
 EXENAME = framework.exe
