@@ -26,6 +26,7 @@ void printGromacsChoice()
             proc1.readGromacsXVG(userInputFilenameXVG);
             proc1.cutGromacsLineVector();
             proc1.transferVector();
+            proc1.getCoordinationNumber();
             break;
         
         default:
@@ -100,7 +101,34 @@ void GromacsProc::transferVector()
     D(cout << "And here is element [25][1]: " << integrator[25][1] << endl;)
 }
 
-int GromacsProc::numericalIntegration()
+void GromacsProc::getCoordinationNumber()
 {
-    
+    double integrationUpperLimit;
+    double mixedSum;
+    double integrand;
+    double totalSum;
+    double totalSumCorr;
+    int stepCounter;
+
+    cout << "What is the x-value until i should integrate (Format X.XXX)?" << endl;
+    cout << "Value: ";
+    cin >> integrationUpperLimit;
+
+    for(int m; m < _INTEGRATOR_LENGTH; m++)
+    {
+        if(integrator[m][0] < integrationUpperLimit)
+        {
+            mixedSum = 0.5 * (integrator[m][1] + integrator[m+1][1]);
+            integrand = mixedSum * integrator[m][0] * integrator[m][0];
+            totalSum = totalSum + integrand;
+            D(cout << "The mean sum of upper and lower sum in this step is: " << mixedSum << endl;)
+            D(cout << "The totalSum (including complete integrand) in this step is: " << totalSum << endl;)
+            stepCounter++;
+        }
+    }
+    totalSumCorr = totalSum * _INTEGRATOR_STEPSIZE;
+
+    double coordinationNumber = 4 * PI * RHO * totalSumCorr;
+    cout << "The final total Sum * 4 * PI * RHO (coordination number): " << coordinationNumber << endl;
+
 }
