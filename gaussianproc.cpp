@@ -76,8 +76,8 @@ void checkCalcType()
     // Return Value 4: 
     
     static string lineGaussianKeywords;
-    static bool gaussianOpt = false;
-    static bool gaussianFreq = false;
+//    static bool gaussianOpt = false;
+//    static bool gaussianFreq = false;
 //    static bool gaussianNBO = false;
 
     for(int j = 0; j < numLines; j++)
@@ -94,13 +94,13 @@ void checkCalcType()
 
     if(lineGaussianKeywords.find("opt") != string::npos || lineGaussianKeywords.find("OPT") != string::npos)
     {
-        gaussianOpt = true;
+//        gaussianOpt = true;
         D(cout << "You performed a geometry optimization!" << endl;)
     }
 
     if(lineGaussianKeywords.find("freq") != string::npos || lineGaussianKeywords.find("FREQ") != string::npos)
     {
-        gaussianFreq = true;
+//        gaussianFreq = true;
         D(cout << "You performed a frequency calculation!" << endl;)
     }
 

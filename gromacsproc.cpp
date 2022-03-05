@@ -1,4 +1,3 @@
-#include "main.h"
 #include "GromacsProc.h"
 
 string userInputFilenameXVG;
@@ -25,9 +24,8 @@ void printGromacsChoice()
             cout << "Please provide me the filename of the XVG output file (including the extension): ";
             cin >> userInputFilenameXVG;
             proc1.readGromacsXVG(userInputFilenameXVG);
-            proc1.cutGromacsLineVector();/*
-            checkCalcType();
-            checkGeomConvergence();*/
+            proc1.cutGromacsLineVector();
+            proc1.transferVector();
             break;
         
         default:
@@ -66,7 +64,6 @@ void GromacsProc::readGromacsXVG(const string userInputFilenameXVG)
 void GromacsProc::cutGromacsLineVector()
 {
     int cutLineCounter;
-    D(static int newNumLines;)
 
     for(int j = 0; j < numLines; j++)
     {
@@ -83,15 +80,27 @@ void GromacsProc::cutGromacsLineVector()
     }
 
     extractedLine.erase(extractedLine.begin(),extractedLine.begin() + cutLineCounter);
-    D(cout << "Vector cut successful, this is what i got: " << endl;)
-    D(newNumLines = numLines - cutLineCounter;)
-    D(for(int k = 0; k < newNumLines; k++){cout << extractedLine[k] << endl;})
+
+    D(cout << "Vector cut successful, this is what i got (first 20 lines): " << endl;)
+    D(for(int k = 0; k < 20; k++){cout << extractedLine[k] << endl;})
 }
 
-void transferVector()
+void GromacsProc::transferVector()
 {
-    for(int j = 0; j < numLines; j++)
+    D(cout << "CAREFUL! The length of the array for the Integration is predefined at " << _INTEGRATOR_LENGTH << " values! Change the macro _INTEGRATOR_LENGTH if needed!" << endl;)
+    D(cout << "For testing purposes, this is substring 1 and 2 of the 25th line: " << extractedLine[25].substr(6,5) << " " << extractedLine[25].substr(15,5) << endl;)
+
+    for(int j = 0; j < _INTEGRATOR_LENGTH; j++)
     {
-       
-    }    
+       integrator[j][0] = {stod(extractedLine[j].substr(6,5))}; // Crazy array declaration -> substring is converted to double
+       integrator[j][1] = {stod(extractedLine[j].substr(15,5))};
+    }
+    
+    D(cout << "To give an example of stored array, here is element [25][0]: " << integrator[25][0] << endl;)
+    D(cout << "And here is element [25][1]: " << integrator[25][1] << endl;)
+}
+
+int GromacsProc::numericalIntegration()
+{
+    
 }
