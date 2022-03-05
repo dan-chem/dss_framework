@@ -1,10 +1,13 @@
 #include "main.h"
+#include "GromacsProc.h"
 
 string userInputFilenameXVG;
 
 void printGromacsChoice()
 {
     static int userInputGromacs1;
+
+    GromacsProc proc1;
 
     cout << "Here are your possible options for Gromacs file processing: " << endl;
     cout << "(1) Calculate coordination number by numerical integration of RDF" << endl;
@@ -21,8 +24,8 @@ void printGromacsChoice()
             cout << "You asked to calculate the coordination number from an RDF by numerical integration, so let's start..." << endl;
             cout << "Please provide me the filename of the XVG output file (including the extension): ";
             cin >> userInputFilenameXVG;
-            readGromacsXVG(userInputFilenameXVG);
-            cutGromacsLineVector();/*
+            proc1.readGromacsXVG(userInputFilenameXVG);
+            proc1.cutGromacsLineVector();/*
             checkCalcType();
             checkGeomConvergence();*/
             break;
@@ -38,9 +41,10 @@ void printGromacsChoice()
     }
 }
 
-void readGromacsXVG(string userInputFilenameXVG)
+void GromacsProc::readGromacsXVG(const string userInputFilenameXVG)
 {
-    static string line;
+    string line;
+
     ifstream inputFile(userInputFilenameXVG);
     if(inputFile.is_open())
     {
@@ -59,9 +63,9 @@ void readGromacsXVG(string userInputFilenameXVG)
     }
 }
 
-void cutGromacsLineVector()
+void GromacsProc::cutGromacsLineVector()
 {
-    static int cutLineCounter;
+    int cutLineCounter;
     D(static int newNumLines;)
 
     for(int j = 0; j < numLines; j++)
