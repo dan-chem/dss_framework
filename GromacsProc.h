@@ -1,14 +1,17 @@
 #include "main.h"
 
 #ifndef _INTEGRATOR_LENGTH
-    #define _INTEGRATOR_LENGTH 1180  // Check, if 1189 is standard length of RDF XVG!
+    #define _INTEGRATOR_LENGTH 1189  // Check, if 1189 is standard length of RDF XVG!
 #endif
 #ifndef _INTEGRATOR_STEPSIZE
     #define _INTEGRATOR_STEPSIZE 0.002 // Check, if standard stepsize in RDF XVG is correct!
 #endif
 
 #define PI 3.141592653589
-#define RHO 0.936 // Assume that density for the system is 1, implement user input later!
+
+#ifndef RHO
+    #define RHO 0.936 // Assume that density for the system is 1, implement user input later!
+#endif
 
 class GromacsProc
 {
