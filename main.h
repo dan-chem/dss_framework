@@ -8,7 +8,7 @@ using namespace std;
 
 /* Define Macros */
 
-#define VERSION "0.1 alpha"
+#define VERSION "0.2 alpha"
 #ifdef DEBUG
     #define D(x) x
 #else
@@ -35,6 +35,10 @@ extern int numLines;
 void checkCalcType();
 
 void checkGeomConvergence();
+
+/* Define functions in gromacsproc.cpp */
+
+void printGromacsChoice();
 
 /* Define global variables */
 

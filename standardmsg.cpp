@@ -54,6 +54,8 @@ void checkChoice()
 
     case 4:
         cout << "You chose option 4: Gromacs file processing. That's a good choice!" << endl;
+        std::cout << "--------------------------------------------------------------------" << std::endl;
+        printGromacsChoice();
         break;
     
     default:
