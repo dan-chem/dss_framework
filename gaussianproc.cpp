@@ -10,13 +10,16 @@ void printGaussianChoice()
     GaussianProc proc1;
 
     cout << "Here are your possible options for Gaussian output file processing: " << endl;
-    cout << "    (1) Check geometry optimization for convergence" << endl;
-    cout << "    (2) Check frequency analysis for imaginary frequencies" << endl;
+    cout << "    ( 1 ) Check geometry optimization for convergence" << endl;
+    cout << "    ( 2 ) Check frequency analysis for imaginary frequencies" << endl;
     cout << "" << endl;
     cout << "Here are your possible options for Gaussian input creation and parsing: " << endl;
     cout << "    (100) Create new Gaussian input w/o xyz-matrix" << endl;
     cout << "    (101) Parse existing Gaussian input file for possible errors and" << endl;
     cout << "          critical combintations" << endl;
+    cout << "" << endl;
+    cout << "Here are miscellaneous options: " << endl;
+    cout << "    (999) Exit Framework" << endl;
     cout << "" << endl;
     cout << "Please choose an option: ";
     cin >> userInputGaussian1;
@@ -25,7 +28,7 @@ void printGaussianChoice()
 
     // Switch through all user inputs -> find a better solution for that!
 
-    if(userInputGaussian1 == 1 || userInputGaussian1 == 2 || userInputGaussian1 == 100 || userInputGaussian1 == 101)
+    if(userInputGaussian1 == 1 || userInputGaussian1 == 2 || userInputGaussian1 == 100 || userInputGaussian1 == 101 || userInputGaussian1 == 999)
     {
         switch (userInputGaussian1)
         {
@@ -36,10 +39,15 @@ void printGaussianChoice()
             cout << "(including the extension): ";
             cin >> userInputFilenameLOG;
             proc1.readInputFile(userInputFilenameLOG);
+
             proc1.checkCalcType();
+
             proc1.checkGeomConvergence();
             break;
         
+        case 999:
+            exit(0);
+
         default:
             break;
         }
@@ -75,16 +83,11 @@ void GaussianProc::readInputFile(string userInputFilenameLOG)
 }
 
 void GaussianProc::checkCalcType()
-{
-    // Return Value 1: Calculation is a geometry optimization
-    // Return Value 2: Calculation is a freqency analysis
-    // Return Value 3: Calculation is a combination of both
-    // Return Value 4: 
-    
+{ 
     static string lineGaussianKeywords;
-//    static bool gaussianOpt = false;
-//    static bool gaussianFreq = false;
-//    static bool gaussianNBO = false;
+    static bool gaussianOpt = false;
+    static bool gaussianFreq = false;
+    static bool gaussianNBO = false;
 
     for(int j = 0; j < numLines; j++)
     {
@@ -100,38 +103,42 @@ void GaussianProc::checkCalcType()
 
     if(lineGaussianKeywords.find("opt") != string::npos || lineGaussianKeywords.find("OPT") != string::npos)
     {
-//        gaussianOpt = true;
+        gaussianOpt = true;
         D(cout << "You performed a geometry optimization!" << endl;)
     }
 
     if(lineGaussianKeywords.find("freq") != string::npos || lineGaussianKeywords.find("FREQ") != string::npos)
     {
-//        gaussianFreq = true;
+        gaussianFreq = true;
         D(cout << "You performed a frequency calculation!" << endl;)
     }
 
-/*    if(lineGaussianKeywords.find("nbo") != string::npos || lineGaussianKeywords.find("NBO") != string::npos)
+    if(lineGaussianKeywords.find("nbo7") != string::npos || lineGaussianKeywords.find("NBO7") != string::npos)
     {
         gaussianNBO = true;
-        D(cout << "You performed a NBO population analysis!" << endl;)
+        D(cout << "You performed a NBO7 population analysis!" << endl;)
     }
 
     if(gaussianOpt == true && gaussianFreq == false)
     {
-        return 1;
+        calculationType = 1;
     }
     else if(gaussianOpt == false && gaussianFreq == true)
     {
-        return 2;
+        calculationType = 2;
     }
     else if(gaussianOpt == true && gaussianFreq == true)
     {
-        return 3;
+        calculationType = 3;
+    }
+    else if(gaussianNBO == true)
+    {
+        calculationType = 4;
     }
     else
     {
         exit(1);
-    }*/
+    }
 }
 
 void GaussianProc::checkGeomConvergence()
@@ -145,6 +152,12 @@ void GaussianProc::checkGeomConvergence()
     static bool rmsForceConv;
     static bool maxDisplacementConv;
     static bool rmsDisplacementConv;
+
+    if(calculationType == 2 || calculationType == 4)
+    {
+        cerr << "ERROR: You didn't perform a geometry optimization in this file! Exiting!" << endl;
+        exit(1);
+    }
 
     for(int j = 0; j < numLines; j++)
     {
@@ -180,10 +193,20 @@ void GaussianProc::checkGeomConvergence()
 
     if(maxForceConv == true && rmsForceConv == true && maxDisplacementConv == true && rmsDisplacementConv == true)
     {
-        cout << "Geometry Optimization looks fine, everything is converged!" << endl;
+        cout << endl;
+        cout << "---------------------------------------------------------------------------" << endl;
+        cout << "------- Geometry Optimization looks fine,  everything is converged! -------" << endl;
+        cout << "---------------------------------------------------------------------------" << endl;
+        cout << endl;
+        exit(0);
     }
     else
     {
-        cout << "Oh no! Something did not converge, check that!" << endl;
+        cout << endl;
+        cout << "---------------------------------------------------------------------------" << endl;
+        cout << "------------- Oh no!  Something did not converge, check that! -------------" << endl;
+        cout << "---------------------------------------------------------------------------" << endl;
+        cout << endl;
+        exit(0);
     }
 }
