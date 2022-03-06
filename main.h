@@ -24,17 +24,6 @@ void checkChoice();
 /* Define functions in gaussianproc.cpp */
 
 void printGaussianChoice();
-extern int userInput2;
-
-void readInputFile(string userInputFilename);
-extern string userInputFilename;
-
-extern vector<string> extractedLine;
-extern int numLines;
-
-void checkCalcType();
-
-void checkGeomConvergence();
 
 /* Define functions in gromacsproc.cpp */
 

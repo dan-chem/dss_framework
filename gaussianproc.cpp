@@ -1,40 +1,43 @@
-#include "main.h"
+#include "GaussianProc.h"
 
-/* Initiate global variables */
-int userInput2;
-int numLines;
-string userInputFilename;
-vector<string> extractedLine{};
+string userInputFilenameLOG;
+
 
 void printGaussianChoice()
 {
+    int userInputGaussian1;
+
+    GaussianProc proc1;
+
     cout << "Here are your possible options for Gaussian output file processing: " << endl;
-    cout << "(1) Check geometry optimization for convergence" << endl;
-    cout << "(2) Check frequency analysis for imaginary frequencies" << endl;
+    cout << "    (1) Check geometry optimization for convergence" << endl;
+    cout << "    (2) Check frequency analysis for imaginary frequencies" << endl;
     cout << "" << endl;
     cout << "Here are your possible options for Gaussian input creation and parsing: " << endl;
-    cout << "(100) Create new Gaussian input w/o xyz-matrix" << endl;
-    cout << "(101) Parse existing Gaussian input file for possible errors and critical" << endl;
-    cout << "      combintations" << endl;
+    cout << "    (100) Create new Gaussian input w/o xyz-matrix" << endl;
+    cout << "    (101) Parse existing Gaussian input file for possible errors and" << endl;
+    cout << "          critical combintations" << endl;
     cout << "" << endl;
     cout << "Please choose an option: ";
-    cin >> userInput2;
+    cin >> userInputGaussian1;
     cout << "" << endl;
-    cout << "--------------------------------------------------------------------" << endl;
+    cout << "---------------------------------------------------------------------------" << endl;
 
     // Switch through all user inputs -> find a better solution for that!
 
-    if(userInput2 == 1 || userInput2 == 2 || userInput2 == 100 || userInput2 == 101)
+    if(userInputGaussian1 == 1 || userInputGaussian1 == 2 || userInputGaussian1 == 100 || userInputGaussian1 == 101)
     {
-        switch (userInput2)
+        switch (userInputGaussian1)
         {
         case 1:
-            cout << "You asked to check a geometry optimization for convergence, so let's start..." << endl;
-            cout << "Please provide me the filename of the Gaussian output file (including the extension): ";
-            cin >> userInputFilename;
-            readInputFile(userInputFilename);
-            checkCalcType();
-            checkGeomConvergence();
+            cout << "You asked to check a geometry optimization for convergence, so let's" << endl;
+            cout << "start..." << endl;
+            cout << "Please provide me the filename of the Gaussian output file" << endl;
+            cout << "(including the extension): ";
+            cin >> userInputFilenameLOG;
+            proc1.readInputFile(userInputFilenameLOG);
+            proc1.checkCalcType();
+            proc1.checkGeomConvergence();
             break;
         
         default:
@@ -49,10 +52,11 @@ void printGaussianChoice()
     
 }
 
-void readInputFile(string userInputFilename)
+void GaussianProc::readInputFile(string userInputFilenameLOG)
 {
     static string line;
-    ifstream inputFile(userInputFilename);
+
+    ifstream inputFile(userInputFilenameLOG);
     if(inputFile.is_open())
     {
         while(getline(inputFile, line))
@@ -65,12 +69,12 @@ void readInputFile(string userInputFilename)
     }
     else
     {
-        cout << "Couldn't read in the given file... Exiting..." << endl;
+        cerr << "ERROR: Couldn't read in the given file... Exiting..." << endl;
         exit(1);
     }
 }
 
-void checkCalcType()
+void GaussianProc::checkCalcType()
 {
     // Return Value 1: Calculation is a geometry optimization
     // Return Value 2: Calculation is a freqency analysis
@@ -130,7 +134,7 @@ void checkCalcType()
     }*/
 }
 
-void checkGeomConvergence()
+void GaussianProc::checkGeomConvergence()
 {
     static string maxForceLine;
     static string rmsForceLine;
