@@ -1,35 +1,36 @@
 #include "main.h"
 
-/* Initiate global variables */
 int userInput1;
 
 void printHeader()
 {
-    std::cout << "---------------------------------------------------" << std::endl;
-    std::cout << "---------------------------------------------------" << std::endl;
-    std::cout << "Welcome to DSS Framework Version " << VERSION << std::endl;
-    std::cout << "---------------------------------------------------" << std::endl;
-    std::cout << "---------------------------------------------------" << std::endl;
+    cout << "---------------------------------------------------------------------------" << endl;
+    cout << "---------------------------------------------------------------------------" << endl;
+    cout << "----- Welcome to DSS Framework Version " << VERSION << " -----" << endl;
+    cout << "---------------------------------------------------------------------------" << endl;
+    cout << "---------------------------------------------------------------------------" << endl;
 }
 
 void printChoice()
 {
-    std::cout << "" << std::endl;
-    std::cout << "Following options are available at the moment: " << std::endl;
-    std::cout << "(1) Gaussian file processing" << std::endl;
-    std::cout << "(2) Orca file processing" << std::endl;
-    std::cout << "(3) Gamess file processing" << std::endl;
-    std::cout << "(4) Gromacs file processing" << std::endl;
-    std::cout << "Please choose an option: ";
-    std::cin >> userInput1;
+    cout << "" << endl;
+    cout << "Following options are available at the moment: " << endl;
+    cout << "    (1) Gaussian file processing" << endl;
+    cout << "    (2) Orca file processing" << endl;
+    cout << "    (3) Gamess file processing" << endl;
+    cout << "    (4) Gromacs file processing" << endl;
+    cout << "" << endl;
+    cout << "Please choose an option: ";
+    cin >> userInput1;
+    cout << "" << endl;
 
     if(userInput1 == 1 || userInput1 == 2 || userInput1 == 3 || userInput1 == 4)
     {
-        D(std::cout << "Userinput seems to be OK, continue..." << std::endl;)
+        D(cout << "Userinput seems to be OK, continue..." << endl;)
     }
     else
     {
-        std::cout << "There is an error with your Input, check that!" << std::endl;
+        cerr << "ERROR: There is something wrong with your Input, check that and try again!" << endl;
         exit(1);
     }
 }
@@ -39,27 +40,38 @@ void checkChoice()
     switch (userInput1)
     {
     case 1:
-        std::cout << "You chose option 1: Gaussian file processing. That's a good choice!" << std::endl;
-        std::cout << "--------------------------------------------------------------------" << std::endl;
+        cout << "---------------------------------------------------------------------------" << endl;
+        cout << "--- You chose option 1: Gaussian file processing. That's a good choice! ---" << endl;
+        cout << "---------------------------------------------------------------------------" << endl;
+        cout << "" << endl;
         printGaussianChoice();
         break;
 
     case 2:
-        std::cout << "You chose option 2: Orca file processing. That's a good choice!" << std::endl;
+        cout << "---------------------------------------------------------------------------" << endl;
+        cout << "----- You chose option 2: Orca file processing. That's a good choice! -----" << endl;
+        cout << "---------------------------------------------------------------------------" << endl;
+        cout << "" << endl;
         break;
 
     case 3:
-        std::cout << "You chose option 3: Gamess file processing. That's a good choice!" << std::endl;
+        cout << "---------------------------------------------------------------------------" << endl;
+        cout << "---- You chose option 3: Gamess file processing. That's a good choice! ----" << endl;
+        cout << "---------------------------------------------------------------------------" << endl;
+        cout << "" << endl;
         break;
 
     case 4:
-        cout << "You chose option 4: Gromacs file processing. That's a good choice!" << endl;
-        std::cout << "--------------------------------------------------------------------" << std::endl;
+        cout << "---------------------------------------------------------------------------" << endl;
+        cout << "--- You chose option 4:  Gromacs file processing. That's a good choice! ---" << endl;
+        cout << "---------------------------------------------------------------------------" << endl;
+        cout << "" << endl;
         printGromacsChoice();
         break;
     
     default:
-        std::cout << "Something went very wrong with your choice, please inform the developer" << std::endl;
+        std::cout << "ERROR: Something went very wrong with your choice, please inform the" << std::endl;
+        cout << "developer! " << endl;
         exit(1);
     }
 }

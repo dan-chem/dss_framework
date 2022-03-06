@@ -42,5 +42,4 @@ void printGromacsChoice();
 
 /* Define global variables */
 
-extern int userInput1;
 

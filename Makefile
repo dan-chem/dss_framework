@@ -13,7 +13,7 @@ CPP = g++
 # RHO: Gromacs engine: At the moment(!) density of the system to integrate over
 
 CPPFLAGS = -Wall -g -D_INTEGRATOR_LENGTH=1189 -DRHO=0.936
-DEBUGFLAGS = -DDEBUG
+DEBUGFLAGS = #-DDEBUG
 LINKFLAGS =
 OBJECTS = main.o standardmsg.o gaussianproc.o gromacsproc.o
 EXENAME = framework.exe

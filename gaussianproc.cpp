@@ -14,10 +14,12 @@ void printGaussianChoice()
     cout << "" << endl;
     cout << "Here are your possible options for Gaussian input creation and parsing: " << endl;
     cout << "(100) Create new Gaussian input w/o xyz-matrix" << endl;
-    cout << "(101) Parse existing Gaussian input file for possible errors and critical combinations" << endl;
+    cout << "(101) Parse existing Gaussian input file for possible errors and critical" << endl;
+    cout << "      combintations" << endl;
     cout << "" << endl;
     cout << "Please choose an option: ";
     cin >> userInput2;
+    cout << "" << endl;
     cout << "--------------------------------------------------------------------" << endl;
 
     // Switch through all user inputs -> find a better solution for that!
@@ -41,7 +43,7 @@ void printGaussianChoice()
     }
     else
     {
-        cout << "You didn't provide a meaningful choice... Exiting..." << endl;
+        cerr << "ERROR: You didn't provide a meaningful choice... Exiting..." << endl;
         exit(1);
     }
     
